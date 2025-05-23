@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import './Docentes.css';
 const API_URL = "http://127.0.0.1:8000/docentes/"; 
 
 const DocentesCRUD = () => {
-  const [docentes, setDocentes] = useState([]);
+  const [docentes, setDocentesLocal] = useState([]);
   const [form, setForm] = useState({
     id: null,
     cc: "",
@@ -20,7 +20,7 @@ const DocentesCRUD = () => {
   const fetchDocentes = async () => {
     try {
       const response = await axios.get(API_URL);
-      setDocentes(response.data);
+      setDocentesLocal(response.data);
     } catch (error) {
       console.error("Error al obtener los docentes:", error);
     }
@@ -50,7 +50,8 @@ const DocentesCRUD = () => {
   // Actualizar docente existente
   const updateDocente = async () => {
     try {
-      await axios.put(`${API_URL}${form.id}`, form);
+      const { id, ...data } = form; // extrae y quita el campo id
+      await axios.put(`${API_URL}${id}`, form);
       fetchDocentes();
       setEditing(false);
       setForm({ cc: "", nombres: "", apellidos: "", email: "", telefono: "" });
