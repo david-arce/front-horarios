@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../services/api.js";
 import './Periodos.css';
 
 const API_URL = "http://127.0.0.1:8000/periodos/";
@@ -15,7 +15,7 @@ const PeriodosCRUD = () => {
     // Obtener la lista de periodos
     const fetchPeriodos = async () => {
         try {
-            const response = await axios.get(API_URL);
+            const response = await api.get(API_URL);
             setPeriodos(response.data);
         } catch (error) {
             console.error("Error al obtener los periodos:", error);
@@ -35,7 +35,7 @@ const PeriodosCRUD = () => {
     // Crear un nuevo periodo
     const createPeriodo = async () => {
         try {
-            await axios.post(API_URL, form);
+            await api.post(API_URL, form);
             fetchPeriodos();
             setForm({ nombre: "" });
         } catch (error) {
@@ -47,7 +47,7 @@ const PeriodosCRUD = () => {
     const updatePeriodo = async () => {
         try {
             const { id } = form;
-            await axios.put(`${API_URL}${id}`, form);
+            await api.put(`${API_URL}${id}`, form);
             fetchPeriodos();
             setEditing(false);
             setForm({ nombre: "" });
@@ -59,7 +59,7 @@ const PeriodosCRUD = () => {
     // Eliminar un periodo
     const deletePeriodo = async (id) => {
         try {
-            await axios.delete(`${API_URL}${id}`);
+            await api.delete(`${API_URL}${id}`);
             fetchPeriodos();
         } catch (error) {
             console.error("Error al eliminar el periodo:", error);
@@ -74,7 +74,7 @@ const PeriodosCRUD = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            <h1>Crud periodos</h1>
+            <h1>Periodos académicos</h1>
             <form onSubmit={(e)=>{
                 e.preventDefault();
                 editing ? updatePeriodo() : createPeriodo();

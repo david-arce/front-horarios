@@ -71,6 +71,7 @@ function Home() {
         <Link to="/sedes" className='button'>Sedes</Link>
         <Link to="/programas" className='button'>Programas</Link>
         <Link to="/periodos" className='button'>Periodos</Link>
+        <Link to="/aulas" className='button'>Aulas</Link>
       </div>
 
       {/* Botón para generar horarios */}
@@ -81,6 +82,9 @@ function Home() {
       {Object.keys(horario).length > 0 && (
         <div style={{ marginTop: '20px' }}>
           <h3>Horario generado</h3>
+          <button className='generate-button' onClick={handleExportToExcel}>
+            Exportar a Excel
+          </button>
           <table border="1" style={{ width: "100%", marginTop: "20px" }}>
             <thead>
               <tr>
@@ -104,9 +108,6 @@ function Home() {
               ))}
             </tbody>
           </table>
-          <button className='generate-button' onClick={handleExportToExcel}>
-            Exportar a Excel
-          </button>
         </div>
       )}
     </div>

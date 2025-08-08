@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../services/api.js";
 import './Sedes.css';
 
 const API_URL = "http://127.0.0.1:8000/sedes/";
@@ -15,7 +15,7 @@ const SedesCRUD = () => {
   // Obtener la lista de sedes
   const fetchSedes = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await api.get(API_URL);
       setSedes(response.data);
     } catch (error) {
       console.error("Error al obtener las sedes:", error);
@@ -35,7 +35,7 @@ const SedesCRUD = () => {
   // Crear una nueva sede
   const createSede = async () => {
     try {
-      await axios.post(API_URL, form);
+      await api.post(API_URL, form);
       fetchSedes();
       setForm({ nombre: "" });
     } catch (error) {
@@ -47,7 +47,7 @@ const SedesCRUD = () => {
   const updateSede = async () => {
     try {
       const { id } = form;
-      await axios.put(`${API_URL}${id}`, form);
+      await api.put(`${API_URL}${id}`, form);
       fetchSedes();
       setEditing(false);
       setForm({ nombre: "" });
@@ -59,7 +59,7 @@ const SedesCRUD = () => {
   // Eliminar una sede
   const deleteSede = async (id) => {
     try {
-      await axios.delete(`${API_URL}${id}`);
+      await api.delete(`${API_URL}${id}`);
       fetchSedes();
     } catch (error) {
       console.error("Error al eliminar la sede:", error);
@@ -74,7 +74,7 @@ const SedesCRUD = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>CRUD de Sedes</h1>
+      <h1>Sedes</h1>
       <form onSubmit={(e) => {
         e.preventDefault();
         editing ? updateSede() : createSede();

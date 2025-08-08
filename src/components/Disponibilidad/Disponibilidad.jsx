@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../services/api.js";
 import './Disponibilidad.css';
 
 const API_URL = "http://127.0.0.1:8000/disponibilidades/";
@@ -23,7 +23,7 @@ const DisponibilidadCRUD = () => {
   // Obtener la lista de disponibilidades
   const fetchDisponibilidades = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await api.get(API_URL);
       setDisponibilidades(response.data);
     } catch (error) {
       console.error("Error al obtener las disponibilidades:", error);
@@ -33,7 +33,7 @@ const DisponibilidadCRUD = () => {
   // Obtener la lista de docentes
   const fetchDocentes = async () => {
     try {
-      const response = await axios.get(DOCENTES_URL);
+      const response = await api.get(DOCENTES_URL);
       setDocentes(response.data);
     }
     catch (error) {
@@ -44,7 +44,7 @@ const DisponibilidadCRUD = () => {
   // Obtener la lista de periodos
   const fetchPeriodos = async () => {
     try {
-      const response = await axios.get(PERIODOS_URL);
+      const response = await api.get(PERIODOS_URL);
       setPeriodos(response.data);
     }
     catch (error) {
@@ -67,15 +67,15 @@ const DisponibilidadCRUD = () => {
   // Crear una nueva disponibilidad
   const createDisponibilidad = async () => {
     try {
-      await axios.post(API_URL, form);
+      await api.post(API_URL, form);
       fetchDisponibilidades();
-      setForm({
-        docente_id: "",
-        periodo_id: "",
-        dia: "",
-        hora_inicio: "",
-        hora_fin: ""
-      });
+      // setForm({
+      //   docente_id: "",
+      //   periodo_id: "",
+      //   dia: "",
+      //   hora_inicio: "",
+      //   hora_fin: ""
+      // });
     } catch (error) {
       console.error("Error al crear la disponibilidad:", error);
     }
@@ -85,7 +85,7 @@ const DisponibilidadCRUD = () => {
   const updateDisponibilidad = async () => {
     try {
       const { id } = form;
-      await axios.put(`${API_URL}${id}`, form);
+      await api.put(`${API_URL}${id}`, form);
       fetchDisponibilidades();
       setEditing(false);
       setForm({
@@ -103,7 +103,7 @@ const DisponibilidadCRUD = () => {
   // Eliminar una disponibilidad
   const deleteDisponibilidad = async (id) => {
     try {
-      await axios.delete(`${API_URL}${id}`);
+      await api.delete(`${API_URL}${id}`);
       fetchDisponibilidades();
     } catch (error) {
       console.error("Error al eliminar la disponibilidad:", error);
@@ -118,7 +118,7 @@ const DisponibilidadCRUD = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>CRUD de Disponibilidad</h1>
+      <h1>Disponibilidad</h1>
       <form onSubmit={(e) => {
         e.preventDefault();
         editing ? updateDisponibilidad() : createDisponibilidad();
@@ -162,7 +162,7 @@ const DisponibilidadCRUD = () => {
           <option value="Martes">Martes</option>
           <option value="Miércoles">Miércoles</option>
           <option value="Jueves">Jueves</option>
-          <option value="Jueves">Viernes</option>
+          <option value="Viernes">Viernes</option>
         </select>
         <input
           type="time"

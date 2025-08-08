@@ -1,0 +1,29 @@
+/* src/components/NavBar.css */
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  background-color: #242424;
+  border-bottom: 1px solid #aaaaaa;
+}
+
+.navbar__spacer {
+  flex: 1;
+}
+
+.navbar__logout button {
+  background: #e74c3c;
+  border: none;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navbar__logout button:hover {
+  opacity: 0.9;
+}
+.navbar__logout button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5);
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../services/api.js";
 import "./Programas.css";
 
 // Ajusta las URLs a tu conveniencia
@@ -20,7 +20,7 @@ const ProgramasCRUD = () => {
   // 1. Obtener la lista de programas
   const fetchProgramas = async () => {
     try {
-      const response = await axios.get(PROGRAMAS_URL);
+      const response = await api.get(PROGRAMAS_URL);
       setProgramas(response.data);
     } catch (error) {
       console.error("Error al obtener los programas:", error);
@@ -41,7 +41,7 @@ const ProgramasCRUD = () => {
   const createPrograma = async () => {
     try {
       // Suponiendo que tu backend espera { codigo, nombre, sedes_ids } 
-      await axios.post(PROGRAMAS_URL, form);
+      await api.post(PROGRAMAS_URL, form);
       fetchProgramas();
       // Limpiar formulario
       setForm({
@@ -57,7 +57,7 @@ const ProgramasCRUD = () => {
   const updatePrograma = async () => {
     try {
       const { id } = form;
-      await axios.put(`${PROGRAMAS_URL}${id}`, form);
+      await api.put(`${PROGRAMAS_URL}${id}`, form);
       fetchProgramas();
       setEditing(false);
       // Limpiar formulario
@@ -73,7 +73,7 @@ const ProgramasCRUD = () => {
   // Eliminar un programa
   const deletePrograma = async (id) => {
     try {
-      await axios.delete(`${PROGRAMAS_URL}${id}`);
+      await api.delete(`${PROGRAMAS_URL}${id}`);
       fetchProgramas();
     } catch (error) {
       console.error("Error al eliminar el programa:", error);
@@ -98,7 +98,7 @@ const ProgramasCRUD = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>CRUD de Programas</h1>
+      <h1>Programas</h1>
 
       <form onSubmit={handleSubmit}>
         <input

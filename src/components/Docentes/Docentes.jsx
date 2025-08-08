@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../services/api.js"; // Importa la instancia de axios configurada
 import './Docentes.css';
 const API_URL = "http://127.0.0.1:8000/docentes/"; 
 
@@ -19,7 +19,7 @@ const DocentesCRUD = () => {
   // Obtener la lista de docentes
   const fetchDocentes = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await api.get(API_URL);
       setDocentesLocal(response.data);
     } catch (error) {
       console.error("Error al obtener los docentes:", error);
@@ -39,7 +39,7 @@ const DocentesCRUD = () => {
   // Crear nuevo docente
   const createDocente = async () => {
     try {
-      await axios.post(API_URL, form);
+      await api.post(API_URL, form);
       fetchDocentes();
       setForm({ cc: "", nombres: "", apellidos: "", email: "", telefono: "" });
     } catch (error) {
@@ -51,7 +51,7 @@ const DocentesCRUD = () => {
   const updateDocente = async () => {
     try {
       const { id, ...data } = form; // extrae y quita el campo id
-      await axios.put(`${API_URL}${id}`, form);
+      await api.put(`${API_URL}${id}`, form);
       fetchDocentes();
       setEditing(false);
       setForm({ cc: "", nombres: "", apellidos: "", email: "", telefono: "" });
@@ -63,7 +63,7 @@ const DocentesCRUD = () => {
   // Eliminar docente
   const deleteDocente = async (id) => {
     try {
-      await axios.delete(`${API_URL}${id}`);
+      await api.delete(`${API_URL}${id}`);
       fetchDocentes();
     } catch (error) {
       console.error("Error al eliminar el docente:", error);
@@ -78,7 +78,7 @@ const DocentesCRUD = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>CRUD de Docentes</h1>
+      <h1>Docentes</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
