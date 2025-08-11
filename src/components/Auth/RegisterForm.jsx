@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './RegisterForm.css';
 
 export default function RegisterForm() {
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [form, setForm] = useState({ username: '', email: '', password: '', user_type: ''});
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ export default function RegisterForm() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await register(form.username, form.email, form.password);
+      await register(form.username, form.email, form.password, form.user_type);
       setMessage('¡Registro exitoso! Redirigiendo al login…');
       navigate('/login');
     } catch (err) {
@@ -63,6 +63,14 @@ export default function RegisterForm() {
           placeholder="Contraseña"
           onChange={handleChange}
         />
+      </div>
+      <div className="form-group">
+        <label htmlFor="user_type">Tipo de usuario</label>
+        <select id="user_type" name="user_type" onChange={handleChange}>
+          <option value="">Seleccione un tipo</option>
+          <option value="docente">docente</option>
+          <option value="admin">admin</option>
+        </select>
       </div>
 
       {message && <p className="error">{message}</p>}
