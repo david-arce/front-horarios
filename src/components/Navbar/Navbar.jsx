@@ -1,6 +1,6 @@
 import React from 'react';
 import LogoutButton from '../../components/Auth/LogoutButton';
-import './NavBar.css';
+import './Navbar.css';
 
 export default function NavBar() {
   return (

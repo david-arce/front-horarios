@@ -1,5 +1,5 @@
 import React from "react";
-import DocentesCRUD from "./components/docentes/docentes.jsx";
+import DocentesCRUD from "./components/Docentes/Docentes.jsx";
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
 import AsignaturasCRUD from "./components/Asignaturas/Asignaturas.jsx";

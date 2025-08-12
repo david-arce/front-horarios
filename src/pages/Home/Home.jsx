@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import { getCurrentUser } from '../../services/authService';
-import './home.css';
+import './Home.css';
 
 function Home() {
   const [horario, setHorario] = useState([]);

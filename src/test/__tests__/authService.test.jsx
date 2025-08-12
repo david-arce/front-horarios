@@ -12,8 +12,8 @@ describe('authService', () => {
 
   test('register retorna id', async () => {
     axios.post.mockResolvedValueOnce({ data: { id: 7 } })
-    const resp = await register('u', 'e@e.com', 'p')
+    const resp = await register('u', 'e@e.com', 'p', 'docente')
     expect(axios.post).toHaveBeenCalled()
-    expect(resp.data.id).toBe(7)   // << ojo: resp.data.id
+    expect(resp.data.id).toBe(7)   
   })
 })
